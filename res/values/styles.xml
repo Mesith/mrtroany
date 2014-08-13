@@ -1,0 +1,51 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+    
+    
+    <style name="SavsiriTheme" parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/SavsiriActionBar</item>
+    </style>
+
+    <style name="SavsiriActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@color/action_bar_pink</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    
+    
+    <color name="action_bar_pink">#4C0B5F</color>
+    
+    <color name="action_bar_bg_color">#E0F2F7</color>
+    <color name="button_bg_start">#B43104</color>
+    <color name="button_bg_end">#11B43104</color>
+    
+    <color name="bg_color_pink">#D8CEF6</color>
+    <color name="bg_color_brown">#F6E3CE</color>
+    <color name="bg_color_light_pink">#E6E0F8</color>
+    
+    
+    <color name="bg_color_yellow">#F7F2E0</color>
+    <color name="shadow_gray">#BDBDBD</color>
+    <color name="theam_color">#BDBDBD</color>
+    <color name="theam_color_blue">#29aae2</color>
+    <color name="theam_color_pink">#fd71cc</color>
+    <color name="theam_color_gray">#D8D8D8</color>
+
+
+</resources>
