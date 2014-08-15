@@ -9,7 +9,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.Request.Method;
 import com.android.volley.toolbox.Volley;
-import com.lk.savsiri.constants.SavsiriConstants;
+import com.lk.savsiri.constants.SavsiriProperties;
 import com.lk.savsiri.data.AuthData;
 import com.lk.savsiri.services.SavsiriRequest;
 
@@ -61,7 +61,7 @@ public class AuthDAO implements Response.Listener<AuthData>,Response.ErrorListen
 
 	String getUrl(String username,String password){
 		
-	String tokenAPIUrl=SavsiriConstants.LOGIN_URL+"?username="+username+"&password="+password;
+	String tokenAPIUrl=SavsiriProperties.LOGIN_URL+"?username="+username+"&password="+password;
 		//String tokenAPIUrl="http://matrimony.apiary-mock.com/notes";
 		return tokenAPIUrl;
 	}
