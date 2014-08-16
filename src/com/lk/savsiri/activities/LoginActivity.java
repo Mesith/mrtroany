@@ -9,10 +9,13 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.android.volley.VolleyError;
+import com.google.gson.Gson;
 import com.lk.savsiri.R;
 import com.lk.savsiri.DAO.AuthDAO;
 import com.lk.savsiri.DAO.AuthDAO.AuthCallBackInterface;
+import com.lk.savsiri.constants.SavsiriConstants;
 import com.lk.savsiri.data.AuthData;
+import com.lk.savsiri.utils.Utils;
 
 
 public class LoginActivity extends Activity implements OnClickListener,AuthCallBackInterface {
@@ -91,6 +94,10 @@ public class LoginActivity extends Activity implements OnClickListener,AuthCallB
 		
 		
 		if(authData.getUserData().getUser()!=null){
+			
+			Utils.putJsonToSharedPreference(this, SavsiriConstants.SS_USER_KEY, new Gson().toJson(authData));
+			
+		
 			showHomescreen();
 		}
 		

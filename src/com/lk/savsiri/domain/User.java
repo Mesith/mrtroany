@@ -51,6 +51,21 @@ public class User {
 	
 	@SerializedName("description_expect")
 	String descriptionExpect;
+	
+	@SerializedName("image_url")
+	String thumbImage;
+	
+	@SerializedName("image_url_big")
+	String profileImage;
+	
+
+	public String getProfileImage() {
+		return profileImage;
+	}
+
+	public void setProfileImage(String profileImage) {
+		this.profileImage = profileImage;
+	}
 
 	public String getName() {
 		return name;
