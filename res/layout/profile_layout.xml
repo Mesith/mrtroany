@@ -124,8 +124,8 @@
                     android:layout_alignLeft="@+id/tvName"
                     android:layout_alignParentRight="true"
                     android:text="Medium Text"
-                     android:textSize="@dimen/normal_text_size"
-                      android:textColor="@color/title_text_colorgray"
+                    android:textSize="@dimen/normal_text_size"
+                    android:textColor="@color/title_text_colorgray"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <TextView

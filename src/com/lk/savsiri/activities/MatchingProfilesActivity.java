@@ -3,6 +3,7 @@ package com.lk.savsiri.activities;
 import android.app.ActionBar.OnNavigationListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 
@@ -96,8 +97,19 @@ public class MatchingProfilesActivity extends SaviriBaseActivity implements OnNa
 
 	@Override
 	public void onRefresh() {
-		System.out.println("REFRESHING");
 		
+		// Start showing the refresh animation
+		swipeLayout.setRefreshing(true);
+
+        // Simulate a long running activity
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+            	System.out.println("REFRESHING");
+            	
+            	swipeLayout.setRefreshing(false);
+            }
+        }, 5000);
 	}
 	
 	
