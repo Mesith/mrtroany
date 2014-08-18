@@ -51,7 +51,7 @@ public class MatchingProfilesActivity extends SaviriBaseActivity implements OnNa
 	
 
 	@Override
-	public boolean onNavigationItemSelected(int position, long arg1) {
+	public boolean onNavigationItemSelected(int position, long arg1) {  
 		
 		switch (position) {
 		case 0:
