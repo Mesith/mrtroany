@@ -7,9 +7,10 @@
 
     <LinearLayout
         android:id="@+id/profile_image_bg"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
+        android:background="@color/profile_bg_color_blue"
         android:orientation="vertical" >
 
         <com.android.volley.toolbox.NetworkImageView
@@ -19,39 +20,137 @@
             android:layout_gravity="center_horizontal"
             android:paddingBottom="15dp"
             android:paddingTop="10dp" />
+
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/profile_data_bg"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="4"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:paddingTop="@dimen/tile_margin"
+         android:background="@color/profile_color_light_gray" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingLeft="@dimen/profile_padding"
+            android:paddingTop="@dimen/profile_summery_padding"
+            android:text="Profile Info"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/title_text_colorgray"
+            android:textSize="@dimen/heading_text_size"
+            android:textStyle="bold" />
 
         <ScrollView
             android:id="@+id/profile_data_scrol_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
-            
-            <RelativeLayout 
+
+            <RelativeLayout
                 android:id="@+id/profile_data_relative"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/profile_margin"
+                android:layout_marginRight="@dimen/profile_margin"
+                android:background="@drawable/round_screen_bg" >
+
+                <TextView
+                    android:id="@+id/lblSummery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="@dimen/profile_padding"
+                    android:layout_marginTop="@dimen/profile_padding"
+                    android:text="Summery"
+                    android:textSize="@dimen/bold_text_size"
+                    android:textColor="@color/title_text_colorgray"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
                 
-                >
+                  <View
+                      android:id="@+id/line"
+                      android:layout_width="match_parent"
+                      android:layout_height="0.05dp"
+                      android:layout_below="@+id/lblSummery"
+                      android:layout_marginTop="@dimen/profile_summery_padding"
+                      android:background="@android:color/darker_gray" />
 
-            <TextView
-                android:id="@+id/name_lable"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/name" />
+                <TextView
+                    android:id="@+id/lblName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/lblSummery"
+                    android:layout_below="@+id/lblSummery"
+                    android:layout_marginTop="@dimen/profile_row_margin"
+                    android:text="Name  :"
+                    android:textSize="@dimen/normal_text_size"
+                     android:textColor="@color/title_text_colorgray"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                
+                  <TextView
+                      android:id="@+id/tvName"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_above="@+id/lblAge"
+                      android:layout_marginLeft="63dp"
+                      android:layout_toRightOf="@+id/lblName"
+                      android:text="Medium Text"
+                       android:textSize="@dimen/normal_text_size"
+                        android:textColor="@color/title_text_colorgray"
+                      android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            
+                <TextView
+                    android:id="@+id/lblAge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/lblName"
+                    android:layout_below="@+id/lblName"
+                    android:layout_marginTop="@dimen/profile_row_margin"
+                    android:text="Age  :"
+                     android:textSize="@dimen/normal_text_size"
+                      android:textColor="@color/title_text_colorgray"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/tvAge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/lblAge"
+                    android:layout_alignLeft="@+id/tvName"
+                    android:layout_alignParentRight="true"
+                    android:text="Medium Text"
+                     android:textSize="@dimen/normal_text_size"
+                      android:textColor="@color/title_text_colorgray"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/lblHeight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/lblAge"
+                    android:layout_below="@+id/lblAge"
+                    android:layout_marginTop="@dimen/profile_row_margin"
+                    android:text="Height  :"
+                     android:textSize="@dimen/normal_text_size"
+                      android:textColor="@color/title_text_colorgray"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/tvHeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/lblHeight"
+                    android:layout_alignLeft="@+id/tvAge"
+                    android:text="Medium Text"
+                     android:textColor="@color/title_text_colorgray"
+                     android:textSize="@dimen/normal_text_size"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
             </RelativeLayout>
         </ScrollView>
     </LinearLayout>
