@@ -8,4 +8,15 @@
     <dimen name="sign_up_feild_margin">15dp</dimen>
     <dimen name="tile_margin">2dp</dimen>
 
+    <!-- Text sizes -->
+    <dimen name="normal_text_size">18sp</dimen>
+    <dimen name="bold_text_size">20sp</dimen>
+    <dimen name="heading_text_size">22sp</dimen>
+
+    <!-- Profile dimens -->
+    <dimen name="profile_margin">5dp</dimen>
+    <dimen name="profile_padding">20dp</dimen>
+    <dimen name="profile_row_margin">33dp</dimen>
+    <dimen name="profile_summery_padding">10dp</dimen>
+
 </resources>

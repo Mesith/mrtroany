@@ -23,6 +23,8 @@ public class ProfileActivity extends SaviriBaseActivity implements OnNavigationL
 	NetworkImageView profileImage;
 	
 	TextView name;
+	TextView age;
+	TextView height;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +46,15 @@ public class ProfileActivity extends SaviriBaseActivity implements OnNavigationL
 	void initUI(){
 		
 		
-		name=(TextView) findViewById(R.id.name);
+		name=(TextView) findViewById(R.id.tvName);
 		name.setText(authData.getUserData().getUser().getName());
+		
+		age=(TextView) findViewById(R.id.tvAge);
+		age.setText(authData.getUserData().getUser().getBirthDay());
+		
+		height=(TextView) findViewById(R.id.tvHeight);
+		height.setText(authData.getUserData().getUser().getContactNumber());
+		
 		profileImage=(NetworkImageView) findViewById(R.id.profile_image);
 		
 		ImageLoader.ImageCache imageCache = new BitmapLruCache();
