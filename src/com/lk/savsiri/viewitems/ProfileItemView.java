@@ -1,6 +1,11 @@
 package com.lk.savsiri.viewitems;
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
+import com.android.volley.toolbox.Volley;
 import com.lk.savsiri.R;
+import com.lk.savsiri.domain.Profile;
+import com.lk.savsiri.utils.BitmapLruCache;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -19,7 +24,7 @@ public class ProfileItemView extends RelativeLayout{
 	TextView tvAddress;
 	TextView tvProfession;
 	
-	ImageView icon;
+	NetworkImageView icon;
 	
 	Button btnShortList;
 	
@@ -51,18 +56,23 @@ public class ProfileItemView extends RelativeLayout{
 		tvProfession=(TextView) this.findViewById(R.id.tv_profession);
 		tvProfession.setTypeface(font);
 		
-		icon=(ImageView) this.findViewById(R.id.drop_down_icon);
+		icon=(NetworkImageView) this.findViewById(R.id.profile_image);
 		btnShortList = (Button) this.findViewById(R.id.btn_shortlist);
 		
 	}
 	
-	public void bindData(ProfileItem pitem){
-		tvName.setText(pitem.getProfileName());
+	public void bindData(Profile pitem){
+		tvName.setText(pitem.getFirstName());
 		tvHeight.setText(pitem.getHeight());
-		tvReligion.setText(pitem.getReligionStatus());
-		tvAddress.setText(pitem.getAddress());
-		tvProfession.setText(pitem.getProfession());
+		tvReligion.setText(pitem.getReligion());
+		tvAddress.setText(pitem.getContactAddress());
+		tvProfession.setText(pitem.getProfessioneExpect());
 		
-		icon.setBackgroundResource(pitem.getIcon());
+		
+		ImageLoader.ImageCache imageCache = new BitmapLruCache();
+		ImageLoader imageLoader = new ImageLoader(Volley.newRequestQueue(context), imageCache);
+		icon.setImageUrl(pitem.getImageUrl(),imageLoader);
+		
+		//icon.setBackgroundResource(pitem.getImageUrl());
 	}
 }

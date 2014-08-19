@@ -3,6 +3,7 @@ package com.lk.savsiri.adapters;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lk.savsiri.domain.Profile;
 import com.lk.savsiri.viewitems.DropDownViewItem;
 import com.lk.savsiri.viewitems.Dropdown;
 import com.lk.savsiri.viewitems.ProfileItem;
@@ -17,12 +18,12 @@ public class MatchingProfilesAdapter extends BaseAdapter {
 
 	Context context;
 	
-	List<ProfileItem> profileList;
+	List<Profile> profileList;
 	
 	public MatchingProfilesAdapter(Context context){
 		
 		this.context=context;
-		profileList=new ArrayList<ProfileItem>();
+		profileList=new ArrayList<Profile>();
 		
 	}
 	
@@ -33,7 +34,7 @@ public class MatchingProfilesAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public ProfileItem getItem(int position) {
+	public Profile getItem(int position) {
 		
 		return profileList.get(position);
 	}
@@ -60,7 +61,7 @@ public class MatchingProfilesAdapter extends BaseAdapter {
 		return viewItem;
 	}
 	
-	public void setProfileList(List<ProfileItem> profileList){
+	public void setProfileList(List<Profile> profileList){
 		
 		this.profileList = profileList;
 		notifyDataSetChanged();
