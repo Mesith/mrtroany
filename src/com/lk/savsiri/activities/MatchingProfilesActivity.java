@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.android.volley.VolleyError;
@@ -21,7 +24,7 @@ import com.lk.savsiri.utils.Utils;
 
 public class MatchingProfilesActivity extends SaviriBaseActivity implements OnNavigationListener,
 																			ProfileDataCallBackListner,
-																			OnRefreshListener{
+																			OnRefreshListener,OnItemClickListener{
 	
 	AuthData authData;
 	
@@ -32,6 +35,8 @@ public class MatchingProfilesActivity extends SaviriBaseActivity implements OnNa
 	ListView listView;
 	
 	MatchingProfilesAdapter adapter;
+	
+	ProfileData profileData;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +106,8 @@ public class MatchingProfilesActivity extends SaviriBaseActivity implements OnNa
 	@Override
 	public void onProfileDataRetriveSuccess(ProfileData profileData) {
 		
+		this.profileData=profileData;
+		
 		System.out.println("PROFILES "+profileData.getProfiles().size());
 		
 		adapter=new MatchingProfilesAdapter(this); 
@@ -108,6 +115,7 @@ public class MatchingProfilesActivity extends SaviriBaseActivity implements OnNa
 		adapter.setProfileList(profileData.getProfiles());
 		
 		listView.setAdapter(adapter);
+		listView.setOnItemClickListener(this);
 	}
 
 
@@ -133,6 +141,19 @@ public class MatchingProfilesActivity extends SaviriBaseActivity implements OnNa
             	swipeLayout.setRefreshing(false);
             }
         }, 5000);
+	}
+
+
+
+	@Override
+	public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
+		
+		
+		Intent intent=new Intent(this,MatchingProfileDetailActivity.class);
+		intent.putExtra(SavsiriConstants.PROFILE_DETAIL, profileData.getProfiles().get(position));
+		startActivity(intent);
+		overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+		
 	}
 	
 	
