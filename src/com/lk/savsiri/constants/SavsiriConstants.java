@@ -6,5 +6,7 @@ public class SavsiriConstants {
 	
 	public static String SS_USER_KEY="com.lk.savsiri.user";
 	
+	
+	
 
 }
