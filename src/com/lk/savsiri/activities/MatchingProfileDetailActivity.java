@@ -1,12 +1,15 @@
 package com.lk.savsiri.activities;
 
 
+import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.os.Bundle;
+
 import com.lk.savsiri.R;
 import com.lk.savsiri.constants.SavsiriConstants;
 import com.lk.savsiri.domain.Profile;
-
-import android.app.Activity;
-import android.os.Bundle;
+import com.lk.savsiri.fragment.ProfileDetailFragment;
 
 public class MatchingProfileDetailActivity extends Activity {
 	
@@ -25,8 +28,18 @@ public class MatchingProfileDetailActivity extends Activity {
 			System.out.println("xxxxxxxxxx"+profile.getFirstName());
 			
 		}
+		CreateFragment();
 		
-		
+	}
+	
+	public void CreateFragment() {
+		  FragmentManager fragmentManager = getFragmentManager();
+	      FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+	      ProfileDetailFragment fragmentProfile = new ProfileDetailFragment();
+	      fragmentTransaction.replace( R.id.detail_container, fragmentProfile);
+	      fragmentTransaction.addToBackStack(null);
+	      fragmentTransaction.commit();
+	      
 	}
 
 }

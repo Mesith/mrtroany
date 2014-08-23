@@ -4,5 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     
+     <!--  <fragment
+        android:name="com.lk.savsiri.fragment.ProfileDetailFragment"
+        android:id="@+id/fragment_place"
+   		android:layout_width="match_parent"
+   		android:layout_height="match_parent" /> -->
+    
 
 </RelativeLayout>
