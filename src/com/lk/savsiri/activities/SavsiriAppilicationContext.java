@@ -8,6 +8,21 @@ public class SavsiriAppilicationContext extends Application {
 	
 	
 	User user;
+	
+	
+	
+	private boolean isFirstTime;
+	
+	
+	
+
+	public boolean isFirstTime() {
+		return isFirstTime;
+	}
+
+	public void setFirstTime(boolean isFirstTime) {
+		this.isFirstTime = isFirstTime;
+	}
 
 	public User getUser() {
 		return user;

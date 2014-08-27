@@ -26,6 +26,7 @@ public class ProfileActivity extends SaviriBaseActivity implements OnNavigationL
 	TextView age;
 	TextView height;
 	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

@@ -1,7 +1,13 @@
 package com.lk.savsiri.activities;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import android.app.ActionBar.OnNavigationListener;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -20,6 +26,7 @@ import com.lk.savsiri.adapters.MatchingProfilesAdapter;
 import com.lk.savsiri.constants.SavsiriConstants;
 import com.lk.savsiri.data.AuthData;
 import com.lk.savsiri.data.ProfileData;
+import com.lk.savsiri.domain.Profile;
 import com.lk.savsiri.utils.Utils;
 
 public class MatchingProfilesActivity extends SaviriBaseActivity implements OnNavigationListener,
@@ -38,6 +45,14 @@ public class MatchingProfilesActivity extends SaviriBaseActivity implements OnNa
 	
 	ProfileData profileData;
 	
+	SharedPreferences preferences;
+	
+	SharedPreferences.Editor editor;
+	
+	Profile[] shortListArray;
+	
+	List<Profile> shortList;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
@@ -52,6 +67,9 @@ public class MatchingProfilesActivity extends SaviriBaseActivity implements OnNa
 		
 		ProfileDAO profileService=new ProfileDAO(this, this);
 		profileService.getMatchingProfiles(authData.getUserData().getUser().getSex());
+		
+		preferences=getSharedPreferences(SavsiriConstants.SS_SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE);
+		editor = preferences.edit();
 		
 		initUI();
 
@@ -89,9 +107,19 @@ public class MatchingProfilesActivity extends SaviriBaseActivity implements OnNa
 			return true;
 			
 		case 2:
-			Intent shortList=new Intent(this,ShortListProfileActivity.class);
-			startActivity(shortList);
+			
+			return false;
+			
+		case 3:
+			
+			Intent shortListIntent=new Intent(this,ShortListedProfileActivity.class);
+			startActivity(shortListIntent);
+			
 			return true;
+			
+		case 4:
+			
+			return false;
 
 		default:
 			
@@ -104,15 +132,33 @@ public class MatchingProfilesActivity extends SaviriBaseActivity implements OnNa
 
 
 	@Override
-	public void onProfileDataRetriveSuccess(ProfileData profileData) {
+	public void onProfileDataRetriveSuccess(ProfileData profileData) { 
 		
 		this.profileData=profileData;
 		
 		System.out.println("PROFILES "+profileData.getProfiles().size());
 		
-		adapter=new MatchingProfilesAdapter(this); 
 		
-		adapter.setProfileList(profileData.getProfiles());
+		
+	    if(preferences.getString(SavsiriConstants.SHORT_LISTED, null)!=null){ 
+	    	
+	    	String shortListJson=preferences.getString(SavsiriConstants.SHORT_LISTED, null);
+	    	shortListArray=new Gson().fromJson(shortListJson, Profile[].class);
+	    	System.out.println("ppppppppppp");
+	    	
+	    }else {
+	    	
+	    	System.out.println("kkkkkkkkkkk");
+	    	shortListArray=new Gson().fromJson("[]", Profile[].class);
+	    	
+		}
+		
+	    shortList=new ArrayList<Profile>(Arrays.asList(shortListArray));
+    	adapter=new MatchingProfilesAdapter(this,shortList); 
+	    //adapter=new MatchingProfilesAdapter(this,profileData.getProfiles()); 
+	    adapter.setProfileList(profileData.getProfiles());
+		
+		
 		
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(this);
@@ -150,7 +196,11 @@ public class MatchingProfilesActivity extends SaviriBaseActivity implements OnNa
 		
 		
 		Intent intent=new Intent(this,MatchingProfileDetailActivity.class);
-		intent.putExtra(SavsiriConstants.PROFILE_DETAIL, profileData.getProfiles().get(position));
+		Bundle bundle=new Bundle();
+		bundle.putParcelable(SavsiriConstants.PROFILE_LIST, profileData);
+		bundle.putInt("position", position);
+		intent.putExtra("extra", bundle);
+		
 		startActivity(intent);
 		overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
 		

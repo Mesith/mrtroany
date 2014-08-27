@@ -22,6 +22,7 @@ public class SaviriBaseActivity extends Activity  {
 	public static final int MATCHING_PROFILES=0;
 	public static final int MY_PROFILES=1;
 	public static final int INBOX=2;
+	public static final int SHORT_LISTED=3;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
