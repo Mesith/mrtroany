@@ -2,10 +2,15 @@ package com.lk.savsiri.activities;
 
 import android.app.ActionBar.OnNavigationListener;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
+
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -14,6 +19,7 @@ import android.widget.ListView;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.lk.savsiri.R;
+
 import com.lk.savsiri.DAO.ProfileDAO;
 import com.lk.savsiri.DAO.ProfileDAO.ProfileDataCallBackListner;
 import com.lk.savsiri.adapters.MatchingProfilesAdapter;
@@ -27,16 +33,15 @@ public class MatchingProfilesActivity extends SaviriBaseActivity implements OnNa
 																			OnRefreshListener,OnItemClickListener{
 	
 	AuthData authData;
-	
 	Gson gson;
-	
 	SwipeRefreshLayout swipeLayout;
-	
 	ListView listView;
-	
 	MatchingProfilesAdapter adapter;
-	
 	ProfileData profileData;
+	
+	private DrawerLayout mDrawerLayout;
+	//private ListView mDrawerList;
+	private ActionBarDrawerToggle mDrawerToggle;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,7 @@ public class MatchingProfilesActivity extends SaviriBaseActivity implements OnNa
 		profileService.getMatchingProfiles(authData.getUserData().getUser().getSex());
 		
 		initUI();
+		createNavigationDrawer();
 
 	}
 	
@@ -156,6 +162,53 @@ public class MatchingProfilesActivity extends SaviriBaseActivity implements OnNa
 		
 	}
 	
+	public void createNavigationDrawer()
+	{
+		mDrawerLayout = (DrawerLayout) this.findViewById(R.id.idrawer_layout);
+	//	mDrawerList = (ListView) findViewById(R.id.idrawer);
+		
+		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+				R.drawable.ic_drawer, R.string.drawer_open,
+				R.string.drawer_close) {
+
+			/** Called when drawer is closed */
+			public void onDrawerClosed(View view) {
+				getActionBar().setTitle("Rumesha");
+				invalidateOptionsMenu();
+
+			}
+
+			/** Called when a drawer is opened */
+			public void onDrawerOpened(View drawerView) {
+				getActionBar().setTitle("JAVATECHIG.COM");
+				invalidateOptionsMenu();
+			}
+
+		};
+
+
+
+		mDrawerLayout.setDrawerListener(mDrawerToggle);
+		
+		getActionBar().setHomeButtonEnabled(true);
+
+		// Enabling Up navigation
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+
+		
+	}
 	
+	@Override
+	protected void onPostCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onPostCreate(savedInstanceState);
+		mDrawerToggle.syncState();
+	}
+	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		mDrawerToggle.onConfigurationChanged(newConfig);
+	}
 	
 }
