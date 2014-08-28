@@ -13,6 +13,8 @@ public class SavsiriConstants {
 	public static String SHORT_LISTED="com.lk.savsiri.shortlisted";
 	
 	public static String IS_FIRST_TIME="com.lk.savsiri.first.login";
+	
+	public static String PROFILE_ID="com.lk.savsiri.profile.id";
 
 	
 

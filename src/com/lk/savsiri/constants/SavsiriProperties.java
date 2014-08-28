@@ -11,5 +11,7 @@ public class SavsiriProperties {
 	
 	public static String PROFILES_URL=BASE_URL+"match.php";
 	
+	public static String GALLERY_URL=BASE_URL+"alb.php";
+	
 
 }
