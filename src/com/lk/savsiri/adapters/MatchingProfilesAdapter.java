@@ -1,23 +1,15 @@
 package com.lk.savsiri.adapters;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.NetworkImageView;
-import com.android.volley.toolbox.Volley;
-import com.lk.savsiri.R;
-import com.lk.savsiri.domain.Profile;
-import com.lk.savsiri.utils.BitmapLruCache;
-import com.lk.savsiri.viewitems.DropDownViewItem;
-import com.lk.savsiri.viewitems.Dropdown;
-import com.lk.savsiri.viewitems.ProfileItem;
-import com.lk.savsiri.viewitems.ProfileItemView;
-
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -25,30 +17,55 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.lk.savsiri.R;
+import com.lk.savsiri.constants.SavsiriConstants;
+import com.lk.savsiri.domain.Profile;
+import com.lk.savsiri.utils.BitmapLruCache;
+import com.lk.savsiri.utils.Utils;
+
 public class MatchingProfilesAdapter extends BaseAdapter {
 
-	Context context;
+	Context mContext;
 	
 	List<Profile> profileList;
+	
 	private int lastPosition = -1;
 	
-	public MatchingProfilesAdapter(Context context){
+	SharedPreferences preferences;
+	
+	SharedPreferences.Editor editor;
+	
+	List<Profile> shortList;
+	
+	List<Profile> shortListMarkedProfiles;
+	
+	
+	public MatchingProfilesAdapter(Context context,List<Profile> shortList){
 		
-		this.context=context;
+		this.mContext=context;
+		this.shortList=shortList;
+		System.out.println("SORT list SIZE"+shortList.size());
 		profileList=new ArrayList<Profile>();
+		shortListMarkedProfiles=new ArrayList<Profile>();
+		preferences= mContext.getSharedPreferences(SavsiriConstants.SS_SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE);
+		editor = preferences.edit();
 		
 	}
 	
 	@Override
 	public int getCount() {
 		
-		return profileList.size();
+		return shortListMarkedProfiles.size();
 	}
 
 	@Override
 	public Profile getItem(int position) {
 		
-		return profileList.get(position);
+		return shortListMarkedProfiles.get(position);
 	}
 
 	@Override
@@ -64,6 +81,7 @@ public class MatchingProfilesAdapter extends BaseAdapter {
 		TextView tvAddress;
 		TextView tvProfession;
 		
+		
 		NetworkImageView icon;
 		Button btnShortList;
 	}
@@ -72,11 +90,11 @@ public class MatchingProfilesAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		
 		ViewHolderItem viewHolder;
-		Typeface font = Typeface.createFromAsset(context.getAssets(), "Roboto-Medium.ttf");
+		Typeface font = Typeface.createFromAsset(mContext.getAssets(), "Roboto-Medium.ttf");
 		
 		if(convertView==null){
 			
-			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	        convertView = inflater.inflate(R.layout.profile_item_layout, parent, false);
 	        
 	        viewHolder = new ViewHolderItem();
@@ -106,21 +124,31 @@ public class MatchingProfilesAdapter extends BaseAdapter {
 		}
 		
 		
-		viewHolder.tvName.setText(profileList.get(position).getFirstName());
-		viewHolder.tvHeight.setText(profileList.get(position).getHeight());
-		viewHolder.tvReligion.setText(profileList.get(position).getReligion());
-		viewHolder.tvAddress.setText(profileList.get(position).getContactAddress());
-		viewHolder.tvProfession.setText(profileList.get(position).getProfessioneExpect());
+		viewHolder.tvName.setText(shortListMarkedProfiles.get(position).getFirstName());
+		viewHolder.tvHeight.setText(shortListMarkedProfiles.get(position).getHeight());
+		viewHolder.tvReligion.setText(shortListMarkedProfiles.get(position).getReligion());
+		viewHolder.tvAddress.setText(shortListMarkedProfiles.get(position).getContactAddress());
+		viewHolder.tvProfession.setText(shortListMarkedProfiles.get(position).getProfessioneExpect());
 		
 		ImageLoader.ImageCache imageCache = new BitmapLruCache();
-		ImageLoader imageLoader = new ImageLoader(Volley.newRequestQueue(context), imageCache);
-		viewHolder.icon.setImageUrl(profileList.get(position).getImageUrl(),imageLoader);
+		ImageLoader imageLoader = new ImageLoader(Volley.newRequestQueue(mContext), imageCache);
+		viewHolder.icon.setImageUrl(shortListMarkedProfiles.get(position).getImageUrl(),imageLoader);
+		viewHolder.btnShortList.setTag(shortListMarkedProfiles.get(position));
 		
-		Animation animation = AnimationUtils.loadAnimation(context,
+		viewHolder.btnShortList.setOnClickListener(clickListner);
+		
+		Animation animation = AnimationUtils.loadAnimation(mContext,
 				(position > lastPosition) ? R.anim.up_from_bottom
 						: R.anim.down_from_top);
 		convertView.startAnimation(animation);
 		lastPosition = position;
+		
+		
+		if(shortListMarkedProfiles.get(position).isShortListed()){
+			viewHolder.btnShortList.setText("Short Listed");
+		}else{
+			viewHolder.btnShortList.setText("Short List");
+		}
 		
 		return convertView;
 	}
@@ -128,8 +156,67 @@ public class MatchingProfilesAdapter extends BaseAdapter {
 	public void setProfileList(List<Profile> profileList){
 		
 		this.profileList = profileList;
+		shortList();
+		
+		
+	}
+	
+	
+	
+	View.OnClickListener clickListner=new OnClickListener() {
+		
+		@Override
+		public void onClick(View view) {
+			
+			if(profileList.size()>0){
+				
+				Profile profile=(Profile) view.getTag();
+				System.out.println("selected >>>>"+profile.getFirstName());
+				
+				shortList.add(profile);
+				
+				Utils.putJsonToSharedPreference(mContext, SavsiriConstants.SHORT_LISTED,
+						new Gson().toJson(shortList.toArray(new Profile[shortList.size()])));
+				
+				shortList();
+				
+				System.out.println("SHORT listed  "+shortList.size());
+				
+			}
+		}
+	};
+	
+	
+
+	
+	
+	void shortList(){
+		
+		
+		Iterator<Profile>  iterator=profileList.iterator();
+		Profile singleProfile;
+		
+		while (iterator.hasNext()) {
+			
+			singleProfile=iterator.next();
+			
+			for (int i = 0; i < shortList.size(); i++) {
+				
+				if(shortList.get(i).getId().equalsIgnoreCase(singleProfile.getId())){
+					
+					singleProfile.setShortListed(true);
+					
+				}
+				
+			}
+			
+			shortListMarkedProfiles.add(singleProfile);
+		}
+		
 		notifyDataSetChanged();
 		
 	}
+
+	
 
 }

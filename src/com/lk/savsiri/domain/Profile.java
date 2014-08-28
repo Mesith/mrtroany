@@ -137,7 +137,11 @@ public class Profile implements Parcelable {
 	@SerializedName("zip")
    	private String zip;
 	
+	private boolean isShortListed;
 	
+	
+
+
     public String getFatherStatus() {
 		return fatherStatus;
 	}
@@ -482,8 +486,12 @@ public class Profile implements Parcelable {
 		this.zip = zip;
 	}
 
-	public static Parcelable.Creator<Profile> getCreator() {
-		return CREATOR;
+	public boolean isShortListed() {
+		return isShortListed;
+	}
+
+	public void setShortListed(boolean isShortListed) {
+		this.isShortListed = isShortListed;
 	}
 
 	protected Profile(Parcel in) {
@@ -530,6 +538,7 @@ public class Profile implements Parcelable {
         views = in.readString();
         weight = in.readString();
         zip = in.readString();
+        isShortListed = in.readByte() != 0x00;
     }
 
     @Override
@@ -582,6 +591,7 @@ public class Profile implements Parcelable {
         dest.writeString(views);
         dest.writeString(weight);
         dest.writeString(zip);
+        dest.writeByte((byte) (isShortListed ? 0x01 : 0x00));
     }
 
     @SuppressWarnings("unused")
@@ -596,4 +606,7 @@ public class Profile implements Parcelable {
             return new Profile[size];
         }
     };
+    
+    
+    
 }

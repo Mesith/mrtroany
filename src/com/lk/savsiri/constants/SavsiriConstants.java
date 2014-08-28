@@ -6,8 +6,13 @@ public class SavsiriConstants {
 	
 	public static String SS_USER_KEY="com.lk.savsiri.user";
 	
-
+	public static String PROFILE_LIST="com.lk.savsiri.profiles";
+	
 	public static String PROFILE_DETAIL="com.lk.savsiri.profile.details";
+	
+	public static String SHORT_LISTED="com.lk.savsiri.shortlisted";
+	
+	public static String IS_FIRST_TIME="com.lk.savsiri.first.login";
 
 	
 
