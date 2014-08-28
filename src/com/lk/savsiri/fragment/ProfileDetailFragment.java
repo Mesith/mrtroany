@@ -6,6 +6,7 @@ import com.android.volley.toolbox.Volley;
 import com.lk.savsiri.R;
 import com.lk.savsiri.activities.GalleryPagerActivity;
 import com.lk.savsiri.constants.SavsiriConstants;
+import com.lk.savsiri.constants.SavsiriProperties;
 import com.lk.savsiri.domain.Profile;
 import com.lk.savsiri.utils.BitmapLruCache;
 
@@ -120,6 +121,7 @@ public class ProfileDetailFragment extends Fragment {
 			else if(v.getId()==R.id.profile_image){
 				
 				Intent intent=new Intent(getActivity(),GalleryPagerActivity.class);
+				intent.putExtra(SavsiriConstants.PROFILE_ID, profile.getId());
 				startActivity(intent);
 				
 			}
