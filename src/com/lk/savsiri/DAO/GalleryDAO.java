@@ -67,7 +67,7 @@ public class GalleryDAO implements Response.Listener<GalleryData>,Response.Error
 	
 	private String getURL(String id){
 		
-		String Url=SavsiriProperties.GALLERY_URL+"?id="+id;
+		String Url=SavsiriProperties.GALLERY_URL+"?userid="+id;
 		
 		return Url;
 		

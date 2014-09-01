@@ -3,6 +3,7 @@
     android:id="@+id/RelativeLayout1"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
+    
     android:orientation="vertical" >
 
     <ImageView
@@ -18,7 +19,7 @@
         android:layout_toRightOf="@+id/drop_down_icon"
         android:gravity="center_horizontal"
         android:layout_centerVertical="true"
-        android:textColor="@android:color/white"
+        android:textColor="@color/action_bar_text_blue"
         android:padding="10dp"
          />
 

@@ -2,10 +2,12 @@ package com.lk.savsiri.adapters;
 
 import java.util.List;
 
+import com.lk.savsiri.constants.SavsiriConstants;
 import com.lk.savsiri.data.GalleryData;
 import com.lk.savsiri.fragment.GalleryPagerFragment;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -16,9 +18,9 @@ public class GalleryAdapter extends FragmentPagerAdapter {
 	
 	Context  mContext;
 	
-	List<String> images;
+	//List<String> images;
 	
-	Fragment fragment;
+	
 	
 	GalleryData galleryImages;
 	
@@ -32,19 +34,18 @@ public class GalleryAdapter extends FragmentPagerAdapter {
 	@Override
 	public int getCount() {
 	
-		return images.size();
+		return galleryImages.getImages().size();
 	}
 
-	@Override
-	public boolean isViewFromObject(View arg0, Object arg1) {
-		
-		return false;
-	}
+
 
 	@Override
-	public Fragment getItem(int arg0) {
+	public Fragment getItem(int position) {
 		
-		fragment=new GalleryPagerFragment();
+		Fragment fragment=new GalleryPagerFragment();
+		Bundle bundle=new Bundle();
+		bundle.putString(SavsiriConstants.ALBUM_IMAGE, galleryImages.getImages().get(position).getImageUrl());
+		fragment.setArguments(bundle);
 		
 		return fragment;
 	}

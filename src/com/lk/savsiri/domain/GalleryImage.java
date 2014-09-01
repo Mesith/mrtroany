@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class GalleryImage implements Parcelable {
 	
-	@SerializedName("ID")
+	@SerializedName("user_id")
 	String id;
 	
 	@SerializedName("image_url")

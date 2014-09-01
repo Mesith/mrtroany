@@ -51,20 +51,32 @@ public class GalleryPagerActivity extends FragmentActivity implements AlbumCallb
 		
 	}
 
-	private void setPager(int position){
+	private void setPager(){
 		
 		adapter=new GalleryAdapter(getSupportFragmentManager(), this);
 		adapter.setGallery(imageData);
 		tabPager.setAdapter(adapter);
-		tabPager.setCurrentItem(position);
+		//tabPager.setCurrentItem(position);
 
 	}
 
 	@Override
 	public void onGallerySuccess(GalleryData data) {
-		
-		
+
 		System.out.println("GALLERY SIZE "+data.getImages().size());
+		this.imageData=data;
+		if(imageData!=null&&imageData.getImages().size()!=0){
+			
+			setPager();
+			
+		}else{
+			
+			//show no images message
+			
+		}
+		
+		
+		
 		
 	}
 

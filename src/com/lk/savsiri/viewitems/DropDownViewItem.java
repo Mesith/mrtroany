@@ -42,7 +42,7 @@ public class DropDownViewItem extends RelativeLayout {
 	void init(){
 		
 		LayoutInflater.from(context).inflate(R.layout.drop_down_layout, this);
-		Typeface font = Typeface.createFromAsset(context.getAssets(), "Roboto-Medium.ttf");
+		Typeface font = Typeface.createFromAsset(context.getAssets(), "Roboto-Regular.ttf");
 		
 		title=(TextView) this.findViewById(R.id.drop_doen_text);
 		title.setTypeface(font);
